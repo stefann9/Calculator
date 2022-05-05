@@ -4,6 +4,7 @@ const buttons = document.querySelector('.buttons');
 const buttons2 = document.querySelector('.buttons2');
 const power = document.querySelector('#power');
 const equal = document.querySelector('#equal');
+const calculator = document.querySelector('.calculator')
 
 let result = '';
 let displayOutput = ''; // used to display the result for the user in div.display
@@ -15,24 +16,16 @@ const specialButtons = [document.querySelector('#sin'), document.querySelector('
                         document.querySelector('#tan'), document.querySelector('#sqrt'),
                         document.querySelector('#power'), document.querySelector('#E'),
                         document.querySelector('#pi')]
+inputs = [];
+calculator.addEventListener('click', (e) => {
 
-
-function removeSpecialButton() {
-    //if last input is a special equation del the entier last input value from result
-    specialButtons.forEach((x) => {
-        if (result.endsWith(x.value)) {
-            result = result.slice(0, -x.value.length)
-            displayOutput = displayOutput.slice(0, -x.name.length);
-            display.innerText = displayOutput;
-        }
-    })
-}
-
-buttons.addEventListener('click', (e) => {
-    if (e.target.tagName === 'BUTTON' && e.target.value !== equal.value) {
-        result += e.target.value; 
+    if (e.target.tagName === 'BUTTON' && e.target.value !== equal.value&& e.target !== remove && e.target !== removeAll && e.target !== power) {
+        inputs.push(e.target)
+        result += e.target.value;
         displayOutput += e.target.name;
+
         display.innerText = displayOutput;
+
     } else if (e.target.value === equal.value) { //target = equal => return result
         try {
             eval(result);
@@ -48,11 +41,11 @@ buttons.addEventListener('click', (e) => {
             }
         } finally {
             //update display
-            displayOutput = eval(result); 
+            displayOutput = eval(result);
             display.innerText = displayOutput;
 
             if (!isNaN(eval(result))) {
-                // save the result for further use
+                //save the result (this way we can use it)
                 result = eval(result).toString();
                 displayOutput = eval(result).toString()
             } else {
@@ -61,31 +54,22 @@ buttons.addEventListener('click', (e) => {
                 displayOutput = result;
             }
         }
-
-    }
-})
-
-buttons2.addEventListener('click', function (e) {
-    if (e.target.tagName === 'BUTTON' && e.target !== remove && e.target !== removeAll && e.target !== power) {
-        result += e.target.value;
-        displayOutput += e.target.name;
-        display.innerText = displayOutput;
-    } else if (e.target === remove) {
+    }else if (e.target === remove) {
         // deletes last input
-        if (specialButtons.some(x => result.endsWith(x.value))) {
-            //if last input is a special equation del the entier last input value from result
-            removeSpecialButton()
-        } else {
-            result = result.slice(0, -1);
-            displayOutput = displayOutput.slice(0, -1);
-            display.innerText = displayOutput;
-        }
+        // if last input is in specialButtons delete it
+        // ex : if last input = Math.sin( slice 'Math.sin(' from result
+        // else if last input = 9 slice last index from result
+        lastInput = inputs.pop()
+        result = result.slice(0, -lastInput.value.length);
+        displayOutput = displayOutput.slice(0, -lastInput.name.length);
+        display.innerText = displayOutput;
     } else if (e.target === removeAll) {
         //(reset the result)
         result = '';
         displayOutput = result;
         display.innerText = result;
     } else if (e.target === power) {
+        inputs.push(e.target)
         // Math.pow( + present result + ,
         // result = e.target.value + result + ',';
         result += e.target.value;
@@ -93,3 +77,4 @@ buttons2.addEventListener('click', function (e) {
         display.innerText = displayOutput;
     }
 })
+
