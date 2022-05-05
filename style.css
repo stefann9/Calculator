@@ -1,0 +1,123 @@
+html{
+    box-sizing: border-box;
+}
+*,*::after,*::before{
+    box-sizing: inherit;
+}
+
+body{
+    width: 80%;
+    margin:0 auto;
+    
+    background-color: rgb(255, 255, 255);
+}
+
+h1{
+    text-align: center;
+    color: rgb(0, 0, 0);
+}
+
+
+.calculator, .buttons ,.buttons2{
+    display:grid;
+    gap:1rem;
+    padding: 1rem;
+
+    background-color: rgba(128, 128, 128, 0.179);
+}
+.calculator{
+    grid-template-columns: 1fr 1fr 1fr;
+
+    border-radius: 5%;
+    padding-top: 3rem;
+
+    background-color: rgb(43, 43, 43);
+}
+
+.buttons{
+    grid-template-columns: repeat(4,1fr);
+
+    grid-column: 2/-1;
+    font-size: 1.5rem;
+}
+
+.buttons2{
+    grid-template-columns: 1fr 1fr;
+
+    grid-column: 1/2;
+}
+
+.display{
+    grid-column: 1/-1;
+    height: 4rem;
+
+    background-color: rgb(254, 255, 255);
+    border: 5px solid rgb(0, 0, 0);
+    border-radius: 5%;
+
+    text-align: right;
+    font-size: 1.5rem;
+    padding-right: 1rem;
+    margin-bottom: 1rem;
+    overflow: auto;
+}
+
+button{
+    font-size: 1em;
+    font-weight: bold;
+
+    border: 1px solid black;
+    padding:0.5rem;
+    border-radius: 10%;
+
+    background-color: rgba(255, 255, 255, 0.865);
+}
+button:hover{
+    background-color: rgb(255, 255, 255);
+}
+button:active{
+    background-color: rgba(232, 232, 232, 0.781);
+}
+
+.buttons2>button:first-child{
+    background-color: rgb(209, 0, 0);
+    color: white;
+}
+
+
+.buttons2>button:first-child:hover{
+    background-color: rgb(230, 0, 0);
+}
+.buttons2>button:first-child:active{
+    background-color: rgba(230, 0, 0, 0.784);
+}
+
+
+.buttons>button:nth-child(19){
+    background-color: rgb(15, 182, 32);
+    color: white;
+}
+.buttons>button:nth-child(19):hover{
+    background-color: rgb(18, 205, 37);
+}
+.buttons>button:nth-child(19):active{
+    background-color: rgba(15, 182, 32, 0.808);
+}
+
+
+
+@media (min-width:780px){
+    body{
+        width: 60%;
+    }
+}
+@media (min-width:990px){
+    body{
+        width: 50%;
+    }
+}
+@media (min-width:1300px){
+    body{
+        width: 40%;
+    }
+}
